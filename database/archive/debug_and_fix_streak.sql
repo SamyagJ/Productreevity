@@ -14,8 +14,7 @@ SELECT
 FROM public.profiles
 WHERE id = auth.uid();
 
--- If your streak shows 1 but should be 2, run this to fix it:
--- This will increment the streak if you earned points yesterday
+
 UPDATE public.profiles
 SET current_streak = current_streak + 1,
     longest_streak = GREATEST(longest_streak, current_streak + 1)
