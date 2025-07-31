@@ -69,4 +69,4 @@ The UI embraces a nature-inspired aesthetic with carefully crafted animations th
 
 ---
 
-**Note**: This is a portfolio project demonstrating full-stack development capabilities. For collaboration or implementation inquiries, please contact me directly via LinkedIn.
+**Note**: For collaboration or implementation inquiries, please contact me directly via LinkedIn.
