@@ -167,5 +167,3 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- You can run this to manually check a user's achievement status:
--- SELECT recalculate_session_achievements('your-user-id-here');
