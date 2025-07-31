@@ -128,8 +128,6 @@ export default function Dashboard() {
         const silverApples = Math.floor(remainingAfterGold / 5)
         const redApples = remainingAfterGold % 5 // Remainder after silver conversion
         
-        // Remove this alert once working
-        // alert(`DEBUG: Using ${userTotalPoints} points → ${silverApples} silver, ${redApples} red`)
         
         
         setTree({

@@ -42,7 +42,6 @@ export default function SignupPage() {
     }
 
     try {
-      console.log("Attempting signup with:", { email: formData.email, username: formData.username })
       
       // Call our API route instead of Supabase directly
       const response = await fetch('/api/signup', {
@@ -70,7 +69,6 @@ export default function SignupPage() {
         }, 3000)
       }
     } catch (error) {
-      console.error("Signup error:", error)
       setErrorMessage("An unexpected error occurred. Please try again.")
     } finally {
       setIsLoading(false)

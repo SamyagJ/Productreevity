@@ -7,49 +7,49 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-green-50">
       {/* Header */}
-      <header className="container mx-auto px-4 py-6">
+      <header className="container mx-auto px-4 py-4 sm:py-6">
         <nav className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <TreePine className="h-8 w-8 text-green-600" />
-            <span className="text-2xl font-bold text-green-800">Productreevity</span>
+          <div className="flex items-center space-x-1 sm:space-x-2">
+            <TreePine className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
+            <span className="text-lg sm:text-2xl font-bold text-green-800">Productreevity</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link href="/login">
-              <Button variant="ghost">Login</Button>
+              <Button variant="ghost" size="sm" className="text-sm sm:text-base px-3 sm:px-4">Login</Button>
             </Link>
             <Link href="/signup">
-              <Button className="bg-green-600 hover:bg-green-700">Get Started</Button>
+              <Button className="bg-green-600 hover:bg-green-700 text-sm sm:text-base px-3 sm:px-4" size="sm">Get Started</Button>
             </Link>
           </div>
         </nav>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 text-center">
+      <section className="container mx-auto px-4 py-8 sm:py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             Grow Your Productivity,
             <br />
             <span className="text-green-600">Grow Your Tree</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
             Transform time management into an engaging, rewarding experience through visual growth and achievement
             systems. Watch your virtual apple tree flourish as you complete productive work sessions.
           </p>
 
           {/* Tree Illustration */}
-          <div className="relative mb-12">
-            <div className="w-64 h-64 mx-auto bg-gradient-to-b from-green-400 to-green-600 rounded-full opacity-20"></div>
-            <TreePine className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-32 w-32 text-green-600" />
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
+          <div className="relative mb-8 sm:mb-12">
+            <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto bg-gradient-to-b from-green-400 to-green-600 rounded-full opacity-20"></div>
+            <TreePine className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-24 w-24 sm:h-32 sm:w-32 text-green-600" />
+            <div className="absolute top-6 sm:top-8 left-1/2 transform -translate-x-1/2">
               <div className="flex space-x-2">
-                <div className="w-4 h-4 bg-yellow-500 rounded-full animate-bounce"></div>
+                <div className="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-500 rounded-full animate-bounce"></div>
                 <div
-                  className="w-4 h-4 bg-red-500 rounded-full animate-bounce"
+                  className="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded-full animate-bounce"
                   style={{ animationDelay: "0.1s" }}
                 ></div>
                 <div
-                  className="w-4 h-4 bg-orange-500 rounded-full animate-bounce"
+                  className="w-3 h-3 sm:w-4 sm:h-4 bg-orange-500 rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 ></div>
               </div>
@@ -72,8 +72,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Key Features</h2>
+      <section className="container mx-auto px-4 py-12 sm:py-16">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12">Key Features</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card className="border-green-200 hover:shadow-lg transition-shadow">
             <CardContent className="p-6 text-center">

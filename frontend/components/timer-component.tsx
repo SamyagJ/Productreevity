@@ -138,18 +138,15 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {
-        // Debug removed("ERROR: No user found")
         return
       }
 
       // Validate required data
       if (!sessionStartTime) {
-        // Debug removed("ERROR: No session start time")
         return
       }
 
       if (elapsedTime <= 0) {
-        // Debug removed("ERROR: No elapsed time to save")
         return
       }
 
@@ -190,7 +187,6 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
   }
 
   const handleSessionComplete = async () => {
-    // Debug removed("Session completing...")
     setIsRunning(false)
 
     const session = {
@@ -207,7 +203,6 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
       // Only increment counter for focus sessions
       setCompletedSessions((prev) => prev + 1)
     } else {
-      // Debug removed(`${sessionType} completed locally (not saved to database)`)
     }
 
     onSessionComplete(session)
@@ -248,11 +243,9 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
   }
 
   const resetTimer = async () => {
-    // Debug removed(`Timer reset clicked... Running: ${isRunning}, Elapsed: ${elapsedTime}s`)
     // If any time has elapsed, save partial session (only for focus sessions)
     if (elapsedTime > 0) {
       if (sessionType === "focus") {
-        // Debug removed("Saving partial focus session...")
         const partialSession = {
           type: sessionType,
           duration: elapsedTime,
@@ -267,10 +260,8 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
         // Increment sessions counter for partial focus sessions
         setCompletedSessions((prev) => prev + 1)
       } else {
-        // Debug removed(`${sessionType} reset locally (not saved to database)`)
       }
     } else {
-      // Debug removed(`No session to save - Elapsed: ${elapsedTime}s (no time elapsed)`)
     }
     
     setIsRunning(false)
