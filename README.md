@@ -3,41 +3,50 @@
 Grow Your Productivity, Grow Your Tree - A gamified productivity app that transforms time management into an engaging, rewarding experience through visual growth and achievement systems.
 
 ## Project Overview
-Productreevity revolutionizes productivity tracking by combining time management with gamification. Users grow a virtual apple tree through productive work sessions, with different apple tiers representing achievement levels. Built by the Husky Coding Project team at the University of Washington.
+Productreevity revolutionizes productivity tracking by combining time management with gamification. Users grow a virtual apple tree through productive work sessions, with different apple tiers representing achievement levels. A full-stack web application built with modern technologies.
 
 ## Key Features
 
 - **Dynamic Tree Growth**: Your apple tree grows in real-time as you complete productive sessions
-- **Tiered Apple System**: Earn different apple types (Bronze, Silver, Gold, Diamond) based on productivity streaks
+- **Tiered Apple System**: Earn different apple types (Red, Silver, Gold, Diamond) based on productivity points
 - **Smart Time Tracking**: Pomodoro-inspired sessions with customizable work/break intervals
 - **Task Management**: Create, organize, and complete tasks with point rewards
 - **Achievement System**: Unlock badges and rewards for consistency and milestones
 - **Analytics Dashboard**: Visualize productivity trends and patterns
 - **Real-time Sync**: Instant updates across all devices via Supabase
 
+## Tech Stack
+
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS, shadcn/ui
+- **Backend**: Supabase (PostgreSQL, Authentication, Real-time)
+- **Database**: PostgreSQL with Row Level Security
+- **Deployment**: Vercel-ready
+- **UI Components**: Modern, accessible component library
+- **Styling**: Tailwind CSS with custom design system
+
 ## Architecture
+
+```
 productreevity/
-├── 🖥️ frontend/                 # Next.js + TypeScript
-│   ├── app/                   # Next.js app directory
-│   │   ├── dashboard/         # Dashboard page
-│   │   ├── login/            # Authentication pages
-│   │   └── signup/           # User registration
-│   ├── components/            # Reusable components
-│   │   ├── tree-visualization.tsx    # Apple tree visualization
-│   │   ├── timer-component.tsx       # Pomodoro timer
-│   │   ├── task-manager.tsx          # Task management
-│   │   ├── achievement-panel.tsx     # Achievement display
-│   │   └── stats-overview.tsx        # Analytics views
-│   ├── lib/                   # Utilities and Supabase client
-│   │   ├── supabase.ts       # Supabase client configuration
-│   │   └── utils.ts          # Helper functions
-│   └── public/               # Static assets
-│
-├── 📊 database/                # Supabase/PostgreSQL
-│   ├── schema.sql            # Database schema
-│   └── seed.sql              # Initial data
-│
-└── 📱 mobile/                 # React Native (future)
+├── frontend/                  # Next.js + TypeScript
+│   ├── app/                  # Next.js app directory
+│   │   ├── dashboard/        # Main dashboard
+│   │   ├── demo/            # Interactive demo
+│   │   ├── login/           # Authentication
+│   │   ├── signup/          # User registration
+│   │   └── api/             # API routes
+│   ├── components/          # Reusable UI components
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── tree-visualization.tsx
+│   │   ├── timer-component.tsx
+│   │   ├── task-manager.tsx
+│   │   ├── achievement-panel.tsx
+│   │   └── stats-overview.tsx
+│   └── lib/                # Utilities and configurations
+└── database/               # PostgreSQL schema
+    ├── complete_schema.sql # Complete database setup
+    └── archive/           # Development files
+```
 
 ## Database Design
 
@@ -325,26 +334,27 @@ describe('Session Points Calculation', () => {
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/productreevity.git
-cd productreevity
+git clone https://github.com/SamyagJ/Productreevity.git
+cd Productreevity
 
 # Install dependencies
 cd frontend
-pnpm install  # or npm install
+npm install  # or pnpm install
 
 # Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your Supabase credentials:
-# NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-# NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Create .env.local with your Supabase credentials:
+echo "NEXT_PUBLIC_SUPABASE_URL=your_supabase_url" >> .env.local
+echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key" >> .env.local
+echo "SUPABASE_SERVICE_ROLE_KEY=your_service_role_key" >> .env.local
 
-# Run database migrations in Supabase dashboard
-# 1. Go to SQL Editor in Supabase
-# 2. Run the contents of database/schema.sql
-# 3. Optionally run database/seed.sql for initial data
+# Set up database
+# 1. Create a new Supabase project
+# 2. Go to SQL Editor in Supabase dashboard
+# 3. Run the contents of database/complete_schema.sql
+# 4. That's it! Complete schema includes all tables, functions, and seed data
 
 # Start development server
-pnpm dev  # or npm run dev
+npm run dev  # or pnpm dev
 ```
 
 ### Deployment
