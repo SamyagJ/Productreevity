@@ -1,0 +1,22 @@
+-- Seed initial achievements
+INSERT INTO public.achievements (name, description, icon_url, points_required, special_condition) VALUES
+    ('First Focus', 'Complete your first focus session', '/achievements/first-focus.png', 0, 'first_session'),
+    ('Task Master', 'Complete 10 tasks', '/achievements/task-master.png', 0, 'tasks_10'),
+    ('Week Warrior', 'Maintain a 7-day streak', '/achievements/week-warrior.png', 0, 'streak_7'),
+    ('Productivity Pro', 'Earn 1000 total points', '/achievements/productivity-pro.png', 1000, NULL),
+    ('Golden Harvest', 'Collect your first gold apple', '/achievements/golden-harvest.png', 0, 'gold_apple'),
+    ('Diamond Excellence', 'Collect your first diamond apple', '/achievements/diamond-excellence.png', 0, 'diamond_apple'),
+    ('Century Club', 'Complete 100 focus sessions', '/achievements/century-club.png', 0, 'sessions_100'),
+    ('Task Tornado', 'Complete 100 tasks', '/achievements/task-tornado.png', 0, 'tasks_100'),
+    ('Month Master', 'Maintain a 30-day streak', '/achievements/month-master.png', 0, 'streak_30'),
+    ('Point Pinnacle', 'Earn 10,000 total points', '/achievements/point-pinnacle.png', 10000, NULL),
+    ('Tree Tender', 'Grow your tree to level 3 (Gold Apple)', '/achievements/tree-tender.png', 0, 'tree_level_3'),
+    ('Forest Guardian', 'Grow your tree to level 4 (Diamond Apple)', '/achievements/forest-guardian.png', 0, 'tree_level_4'),
+    ('Apple Collector', 'Collect 100 apples total', '/achievements/apple-collector.png', 0, 'apples_100'),
+    ('Time Titan', 'Complete 100 hours of focus time', '/achievements/time-titan.png', 0, 'hours_100'),
+    ('Early Bird', 'Complete a session before 6 AM', '/achievements/early-bird.png', 0, 'early_bird'),
+    ('Night Owl', 'Complete a session after 11 PM', '/achievements/night-owl.png', 0, 'night_owl'),
+    ('Consistent Creator', 'Complete at least one session every day for a week', '/achievements/consistent-creator.png', 0, 'daily_week'),
+    ('Marathon Mind', 'Complete a 2-hour focus session', '/achievements/marathon-mind.png', 0, 'session_120'),
+    ('Quick Start', 'Complete 5 tasks in one day', '/achievements/quick-start.png', 0, 'tasks_5_day'),
+    ('Perfect Week', 'Complete all planned tasks in a week', '/achievements/perfect-week.png', 0, 'perfect_week');

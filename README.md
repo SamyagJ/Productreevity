@@ -1,63 +1,50 @@
-🌳 Productreevity
+# Productreevity
 
 Grow Your Productivity, Grow Your Tree - A gamified productivity app that transforms time management into an engaging, rewarding experience through visual growth and achievement systems.
 
-🎯 Project Overview
+## Project Overview
 Productreevity revolutionizes productivity tracking by combining time management with gamification. Users grow a virtual apple tree through productive work sessions, with different apple tiers representing achievement levels. Built by the Husky Coding Project team at the University of Washington.
-🌟 Key Features
 
-🌲 Dynamic Tree Growth: Your apple tree grows in real-time as you complete productive sessions
-🍎 Tiered Apple System: Earn different apple types (Bronze, Silver, Gold, Diamond) based on productivity streaks
-⏱️ Smart Time Tracking: Pomodoro-inspired sessions with customizable work/break intervals
-📋 Task Management: Create, organize, and complete tasks with point rewards
-🏆 Achievement System: Unlock badges and rewards for consistency and milestones
-📊 Analytics Dashboard: Visualize productivity trends and patterns
-🔄 Real-time Sync: Instant updates across all devices via Supabase
+## Key Features
 
-🏗️ Architecture
+- **Dynamic Tree Growth**: Your apple tree grows in real-time as you complete productive sessions
+- **Tiered Apple System**: Earn different apple types (Bronze, Silver, Gold, Diamond) based on productivity streaks
+- **Smart Time Tracking**: Pomodoro-inspired sessions with customizable work/break intervals
+- **Task Management**: Create, organize, and complete tasks with point rewards
+- **Achievement System**: Unlock badges and rewards for consistency and milestones
+- **Analytics Dashboard**: Visualize productivity trends and patterns
+- **Real-time Sync**: Instant updates across all devices via Supabase
+
+## Architecture
 productreevity/
-├── 🖥️ frontend/                 # React + TypeScript
-│   ├── src/
-│   │   ├── components/         # UI components
-│   │   │   ├── Tree/          # Apple tree visualization
-│   │   │   ├── Timer/         # Pomodoro timer
-│   │   │   ├── Tasks/         # Task management
-│   │   │   └── Dashboard/     # Analytics views
-│   │   ├── hooks/             # Custom React hooks
-│   │   ├── services/          # API service layer
-│   │   └── utils/             # Helper functions
-│   └── public/                # Static assets
+├── 🖥️ frontend/                 # Next.js + TypeScript
+│   ├── app/                   # Next.js app directory
+│   │   ├── dashboard/         # Dashboard page
+│   │   ├── login/            # Authentication pages
+│   │   └── signup/           # User registration
+│   ├── components/            # Reusable components
+│   │   ├── tree-visualization.tsx    # Apple tree visualization
+│   │   ├── timer-component.tsx       # Pomodoro timer
+│   │   ├── task-manager.tsx          # Task management
+│   │   ├── achievement-panel.tsx     # Achievement display
+│   │   └── stats-overview.tsx        # Analytics views
+│   ├── lib/                   # Utilities and Supabase client
+│   │   ├── supabase.ts       # Supabase client configuration
+│   │   └── utils.ts          # Helper functions
+│   └── public/               # Static assets
 │
-├── 🔧 backend/                  # Flask + Python
-│   ├── app.py                 # Main Flask application
-│   ├── api/                   # API endpoints
-│   │   ├── auth.py           # Authentication routes
-│   │   ├── sessions.py       # Time tracking endpoints
-│   │   ├── tasks.py          # Task management
-│   │   ├── rewards.py        # Points & achievements
-│   │   └── analytics.py      # User statistics
-│   ├── models/                # Database models
-│   │   ├── user.py
-│   │   ├── session.py
-│   │   ├── task.py
-│   │   ├── tree.py
-│   │   └── achievement.py
-│   ├── services/              # Business logic
-│   │   ├── gamification.py   # Point calculations
-│   │   ├── tree_growth.py    # Tree progression logic
-│   │   └── notifications.py  # Achievement alerts
-│   └── utils/                 # Utilities
-│       ├── decorators.py     # Auth decorators
-│       └── validators.py     # Input validation
-│
-├── 📊 database/                # PostgreSQL schemas
-│   ├── migrations/           # Database migrations
-│   └── seeds/               # Initial data
+├── 📊 database/                # Supabase/PostgreSQL
+│   ├── schema.sql            # Database schema
+│   └── seed.sql              # Initial data
 │
 └── 📱 mobile/                 # React Native (future)
-💾 Database Design
-Core Tables
-sql-- Users table
+
+## Database Design
+
+### Core Tables
+
+```sql
+-- Users table
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -124,115 +111,156 @@ CREATE TABLE user_achievements (
     unlocked_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     PRIMARY KEY (user_id, achievement_id)
 );
-🎮 Gamification System
-Apple Tier System
-pythonAPPLE_TIERS = {
-    'bronze': {
-        'min_duration': 15,    # minutes
-        'points': 10,
-        'growth_rate': 0.1
-    },
-    'silver': {
-        'min_duration': 30,
-        'points': 25,
-        'growth_rate': 0.2
-    },
-    'gold': {
-        'min_duration': 45,
-        'points': 50,
-        'growth_rate': 0.3
-    },
-    'diamond': {
-        'min_duration': 60,
-        'points': 100,
-        'growth_rate': 0.5,
-        'streak_required': 7  # Requires 7-day streak
-    }
+```
+
+## Gamification System
+
+### Apple Tier System
+
+```typescript
+const APPLE_TIERS = {
+  red: {
+    points: 10,
+    description: "Base apple earned from completing tasks and focus sessions"
+  },
+  silver: {
+    points: 50,        // 5 red apples
+    conversionRate: 5,  // 5 red = 1 silver
+    description: "Earned by converting 5 red apples"
+  },
+  gold: {
+    points: 250,       // 25 red apples
+    conversionRate: 5,  // 5 silver = 1 gold
+    description: "Earned by converting 5 silver apples"
+  },
+  diamond: {
+    points: 1250,      // 125 red apples
+    conversionRate: 5,  // 5 gold = 1 diamond
+    description: "Ultimate achievement - earned by converting 5 gold apples"
+  }
 }
-Point Calculation Algorithm
-pythondef calculate_session_points(duration_minutes, streak_days, tasks_completed):
-    base_points = duration_minutes * 0.5
-    streak_multiplier = 1 + (streak_days * 0.1)  # 10% bonus per streak day
-    task_bonus = tasks_completed * 5
-    
-    total_points = (base_points + task_bonus) * streak_multiplier
-    return int(total_points)
-Tree Growth Formula
-pythondef calculate_tree_growth(total_productive_minutes, apple_count):
-    # Logarithmic growth curve for realistic progression
-    base_growth = math.log(total_productive_minutes + 1) * 10
-    apple_boost = apple_count * 0.05
-    
-    growth_level = base_growth * (1 + apple_boost)
-    return min(growth_level, 100)  # Cap at level 100
-🔌 API Endpoints
-Authentication
-POST   /api/auth/register     # Create new account
-POST   /api/auth/login        # Login user
-POST   /api/auth/logout       # Logout user
-GET    /api/auth/profile      # Get user profile
-Sessions
-POST   /api/sessions/start    # Start productivity session
-PUT    /api/sessions/:id/end  # End session
-GET    /api/sessions/active   # Get active session
-GET    /api/sessions/history  # Get session history
-Tasks
-GET    /api/tasks            # Get all tasks
-POST   /api/tasks            # Create new task
-PUT    /api/tasks/:id        # Update task
-DELETE /api/tasks/:id        # Delete task
-PUT    /api/tasks/:id/complete # Mark task complete
-Rewards & Analytics
-GET    /api/rewards/tree     # Get tree status
-GET    /api/rewards/achievements # Get achievements
-GET    /api/analytics/summary # Get productivity summary
-GET    /api/analytics/trends  # Get trend data
+```
 
-🚀 Backend Implementation Details
-Real-time Updates with Supabase
-pythonfrom supabase import create_client, Client
-import os
+### Point Calculation System
 
-class SupabaseService:
-    def __init__(self):
-        self.client: Client = create_client(
-            os.getenv('SUPABASE_URL'),
-            os.getenv('SUPABASE_KEY')
-        )
-    
-    def subscribe_to_tree_updates(self, user_id, callback):
-        """Subscribe to real-time tree growth updates"""
-        return self.client.table('trees') \
-            .on('UPDATE', callback) \
-            .eq('user_id', user_id) \
-            .subscribe()
-Gamification Service
-pythonclass GamificationService:
-    def process_completed_session(self, user_id, session):
-        """Process rewards for completed session"""
-        # Calculate points
-        points = self.calculate_points(session)
-        
-        # Determine apple tier
-        apple_tier = self.determine_apple_tier(
-            session.duration,
-            user.current_streak
-        )
-        
-        # Update tree
-        self.grow_tree(user_id, apple_tier, points)
-        
-        # Check achievements
-        self.check_achievements(user_id)
-        
-        return {
-            'points_earned': points,
-            'apple_earned': apple_tier,
-            'new_achievements': achievements
-        }
-🎨 UI/UX Design Specifications
-Color Palette
-css:root {
+```typescript
+// Task Points by Priority
+const TASK_POINTS = {
+  low: 1,      // Low priority tasks
+  medium: 5,   // Medium priority tasks  
+  high: 10     // High priority tasks
+}
+
+// Session Points
+const SESSION_POINTS = {
+  focusSession25Min: 1  // 25-minute focus session = 1 point
+}
+
+// Apple Conversion Logic
+const convertPointsToApples = (totalPoints: number) => {
+  const redApples = Math.floor(totalPoints / 10)
+  const silverApples = Math.floor(redApples / 5)
+  const goldApples = Math.floor(silverApples / 5)
+  const diamondApples = Math.floor(goldApples / 5)
+  
+  return {
+    red: redApples % 5,           // Remaining red apples
+    silver: silverApples % 5,     // Remaining silver apples  
+    gold: goldApples % 5,         // Remaining gold apples
+    diamond: diamondApples        // All diamond apples
+  }
+}
+```
+
+### Tree Growth Formula
+
+```typescript
+const calculateTreeGrowth = (
+  totalProductiveMinutes: number, 
+  appleCount: number
+): number => {
+  // Logarithmic growth curve for realistic progression
+  const baseGrowth = Math.log(totalProductiveMinutes + 1) * 10
+  const appleBoost = appleCount * 0.05
+  
+  const growthLevel = baseGrowth * (1 + appleBoost)
+  return Math.min(growthLevel, 100)  // Cap at level 100
+}
+```
+
+## Supabase Integration
+
+### Authentication
+- Built-in Supabase Auth for user registration and login
+- Email/password authentication with email verification
+- OAuth providers can be easily added (Google, GitHub, etc.)
+
+### Database Operations
+All database operations are handled through the Supabase client:
+- **Sessions**: Real-time session tracking with RLS
+- **Tasks**: CRUD operations with automatic user filtering
+- **Trees**: Real-time tree growth updates
+- **Achievements**: Automatic achievement tracking
+
+### Real-time Features
+- Live tree growth visualization
+- Instant task updates across devices
+- Real-time achievement notifications
+- Live session status updates
+
+## Frontend Implementation Details
+
+### Supabase Client Setup
+
+```typescript
+// lib/supabase.ts
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+```
+
+### Real-time Subscriptions
+
+```typescript
+// Subscribe to tree updates
+const subscription = supabase
+  .channel('tree-updates')
+  .on('postgres_changes', 
+    { event: 'UPDATE', schema: 'public', table: 'trees' },
+    (payload) => {
+      // Update tree visualization
+      updateTreeVisualization(payload.new)
+    }
+  )
+  .subscribe()
+```
+
+### Gamification Logic
+
+```typescript
+// Calculate points client-side or use Supabase Edge Functions
+const calculateSessionPoints = async (sessionData: Session) => {
+  const basePoints = sessionData.duration * 0.5
+  const streakMultiplier = 1 + (user.currentStreak * 0.1)
+  const totalPoints = Math.floor(basePoints * streakMultiplier)
+  
+  // Update user points in database
+  await supabase
+    .from('profiles')
+    .update({ total_points: user.total_points + totalPoints })
+    .eq('id', user.id)
+}
+```
+
+## UI/UX Design Specifications
+
+### Color Palette
+
+```css
+:root {
     --primary-green: #4CAF50;      /* Healthy tree green */
     --secondary-brown: #8B4513;     /* Tree trunk brown */
     --accent-gold: #FFD700;         /* Gold apple */
@@ -240,87 +268,103 @@ css:root {
     --text-primary: #333333;
     --text-secondary: #666666;
 }
-Tree Visualization States
+```
 
-Seedling (Level 1-20): Small sapling with few leaves
-Young Tree (Level 21-50): Medium tree with branches
-Mature Tree (Level 51-80): Full tree with many branches
-Grand Tree (Level 81-100): Majestic tree with abundant apples
+### Tree Visualization States
 
-Animation Specifications
+- **Seedling (Level 1-20)**: Small sapling with few leaves
+- **Young Tree (Level 21-50)**: Medium tree with branches
+- **Mature Tree (Level 51-80)**: Full tree with many branches
+- **Grand Tree (Level 81-100)**: Majestic tree with abundant apples
 
-Tree growth: Smooth transition over 2 seconds
-Apple appearance: Bounce animation (0.5s)
-Point counter: Incremental count-up effect
-Achievement unlock: Slide-in from right with confetti
+### Animation Specifications
 
-🧪 Testing Strategy
-Backend Testing
-python# Example test for session points calculation
-def test_calculate_session_points():
-    service = GamificationService()
-    
-    # Test basic session
-    points = service.calculate_points(
-        duration=30,
-        streak=0,
-        tasks=0
-    )
-    assert points == 15
-    
-    # Test with streak bonus
-    points = service.calculate_points(
-        duration=30,
-        streak=5,
-        tasks=0
-    )
-    assert points == 22  # 15 * 1.5 streak multiplier
-🚀 Getting Started
-Prerequisites
+- **Tree growth**: Smooth transition over 2 seconds
+- **Apple appearance**: Bounce animation (0.5s)
+- **Point counter**: Incremental count-up effect
+- **Achievement unlock**: Slide-in from right with confetti
 
-Python 3.9+
-Node.js 16+
-PostgreSQL 14+
-Supabase account
+## Testing Strategy
 
-Backend Setup
-bash# Clone repository
-git clone https://github.com/huskycodingproject/productreevity.git
-cd productreevity/backend
+### Frontend Testing
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+```typescript
+// Example test for points calculation
+import { calculateSessionPoints } from '@/lib/gamification'
 
-# Install dependencies
-pip install -r requirements.txt
+describe('Session Points Calculation', () => {
+  it('calculates basic session points', () => {
+    const points = calculateSessionPoints({
+      duration: 30,
+      streak: 0,
+      tasksCompleted: 0
+    })
+    expect(points).toBe(15)
+  })
+  
+  it('applies streak multiplier correctly', () => {
+    const points = calculateSessionPoints({
+      duration: 30,
+      streak: 5,
+      tasksCompleted: 0
+    })
+    expect(points).toBe(22) // 15 * 1.5 streak multiplier
+  })
+})
+```
 
-# Set environment variables
-cp .env.example .env
-# Edit .env with your Supabase credentials
+## Getting Started
 
-# Run migrations
-flask db upgrade
+### Prerequisites
 
-# Start server
-flask run
-Frontend Setup
-bashcd ../frontend
+- Node.js 18+
+- npm or pnpm
+- Supabase account
+
+### Setup Instructions
+
+```bash
+# Clone repository
+git clone https://github.com/yourusername/productreevity.git
+cd productreevity
 
 # Install dependencies
-npm install
+cd frontend
+pnpm install  # or npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Supabase credentials:
+# NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Run database migrations in Supabase dashboard
+# 1. Go to SQL Editor in Supabase
+# 2. Run the contents of database/schema.sql
+# 3. Optionally run database/seed.sql for initial data
 
 # Start development server
-npm start
+pnpm dev  # or npm run dev
+```
 
-📈 Future Enhancements
+### Deployment
 
-Mobile App: React Native for iOS/Android
-Social Features: Friends, leaderboards, challenges
-AI Insights: ML-powered productivity recommendations
-Integrations: Calendar sync, Spotify integration for focus music
-Custom Themes: Different tree types and environments
-Team Mode: Grow a forest together with your team
+```bash
+# Deploy to Vercel
+vercel
 
-📄 License
+# Set environment variables in Vercel dashboard
+# Add the same variables from .env.local
+```
+
+## Future Enhancements
+
+- **Mobile App**: React Native for iOS/Android
+- **Social Features**: Friends, leaderboards, challenges
+- **AI Insights**: ML-powered productivity recommendations
+- **Integrations**: Calendar sync, Spotify integration for focus music
+- **Custom Themes**: Different tree types and environments
+- **Team Mode**: Grow a forest together with your team
+
+## License
 This project is licensed under the MIT License - see the LICENSE file for details.
