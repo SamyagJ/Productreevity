@@ -4,25 +4,28 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Play, Pause, RotateCcw } from "lucide-react"
+import { Play, Pause, RotateCcw, Settings } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { refreshWeeklyStats } from "./stats-overview"
+import { TimePicker } from "./time-picker"
 
 interface TimerProps {
   onSessionComplete: (session: any) => void
 }
 
 export function TimerComponent({ onSessionComplete }: TimerProps) {
+  const [customFocusTime, setCustomFocusTime] = useState(25 * 60) // Custom focus time in seconds
   const [timeLeft, setTimeLeft] = useState(25 * 60) // 25 minutes in seconds
   const [isRunning, setIsRunning] = useState(false)
   const [sessionType, setSessionType] = useState<"focus" | "shortBreak" | "longBreak">("focus")
   const [completedSessions, setCompletedSessions] = useState(0)
   const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null)
   const [elapsedTime, setElapsedTime] = useState(0) // Track elapsed time for current session
+  const [showTimePicker, setShowTimePicker] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const sessionDurations = {
-    focus: 25 * 60,
+    focus: customFocusTime,
     shortBreak: 5 * 60,
     longBreak: 15 * 60,
   }
@@ -31,7 +34,16 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
   useEffect(() => {
     loadTodaysSessionCount()
     setupMidnightReset()
+    // Initialize timer with custom focus time
+    setTimeLeft(customFocusTime)
   }, [])
+
+  // Update timeLeft when customFocusTime changes and we're in focus mode
+  useEffect(() => {
+    if (sessionType === "focus" && !isRunning) {
+      setTimeLeft(customFocusTime)
+    }
+  }, [customFocusTime, sessionType, isRunning])
 
   // Existing timer effect
   useEffect(() => {
@@ -273,6 +285,19 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
     setTimeLeft(sessionDurations[type])
   }
 
+  const handleTimePickerConfirm = (hours: number, minutes: number) => {
+    const totalSeconds = hours * 3600 + minutes * 60
+    setCustomFocusTime(totalSeconds)
+    if (sessionType === "focus" && !isRunning) {
+      setTimeLeft(totalSeconds)
+    }
+    setShowTimePicker(false)
+  }
+
+  const handleTimePickerCancel = () => {
+    setShowTimePicker(false)
+  }
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
@@ -295,31 +320,45 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
   return (
     <div className="space-y-6">
       {/* Session Type Selector */}
-      <div className="flex space-x-2">
-        <Button
-          variant={sessionType === "focus" ? "default" : "outline"}
-          size="sm"
-          onClick={() => switchSession("focus")}
-          className={sessionType === "focus" ? "bg-green-600" : ""}
-        >
-          Focus
-        </Button>
-        <Button
-          variant={sessionType === "shortBreak" ? "default" : "outline"}
-          size="sm"
-          onClick={() => switchSession("shortBreak")}
-          className={sessionType === "shortBreak" ? "bg-blue-600" : ""}
-        >
-          Short Break
-        </Button>
-        <Button
-          variant={sessionType === "longBreak" ? "default" : "outline"}
-          size="sm"
-          onClick={() => switchSession("longBreak")}
-          className={sessionType === "longBreak" ? "bg-purple-600" : ""}
-        >
-          Long Break
-        </Button>
+      <div className="flex justify-between items-center">
+        <div className="flex space-x-2">
+          <Button
+            variant={sessionType === "focus" ? "default" : "outline"}
+            size="sm"
+            onClick={() => switchSession("focus")}
+            className={sessionType === "focus" ? "bg-green-600" : ""}
+          >
+            Focus
+          </Button>
+          <Button
+            variant={sessionType === "shortBreak" ? "default" : "outline"}
+            size="sm"
+            onClick={() => switchSession("shortBreak")}
+            className={sessionType === "shortBreak" ? "bg-blue-600" : ""}
+          >
+            Short Break
+          </Button>
+          <Button
+            variant={sessionType === "longBreak" ? "default" : "outline"}
+            size="sm"
+            onClick={() => switchSession("longBreak")}
+            className={sessionType === "longBreak" ? "bg-purple-600" : ""}
+          >
+            Long Break
+          </Button>
+        </div>
+        
+        {sessionType === "focus" && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowTimePicker(true)}
+            className="text-gray-600 hover:text-gray-900"
+            disabled={isRunning}
+          >
+            <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
+          </Button>
+        )}
       </div>
 
       {/* Timer Display */}
@@ -397,6 +436,14 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
         </Card>
       </div>
       
+      {/* Time Picker Modal */}
+      <TimePicker
+        defaultHours={Math.floor(customFocusTime / 3600)}
+        defaultMinutes={Math.floor((customFocusTime % 3600) / 60)}
+        onConfirm={handleTimePickerConfirm}
+        onCancel={handleTimePickerCancel}
+        isOpen={showTimePicker}
+      />
     </div>
   )
 }
