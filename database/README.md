@@ -4,7 +4,7 @@ complete_scheme.sql contains all deployment postgres in a compiled document for 
 ## Production Files
 
 ### Complete Setup
-- **`complete_schema.sql`** - 🎯 **SINGLE FILE FOR EVERYTHING** - Complete database setup including:
+- **`complete_schema.sql`****SINGLE FILE FOR EVERYTHING** - Complete database setup including:
   - All tables, indexes, functions, triggers
   - Row Level Security (RLS) policies  
   - Achievement system with emoji icons
