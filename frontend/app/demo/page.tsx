@@ -151,22 +151,22 @@ export default function DemoPage() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <TreePine className="h-8 w-8 text-green-600" />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <TreePine className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Productreevity Demo</h1>
-                <p className="text-sm text-gray-600">Experience the magic of gamified productivity</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900">Productreevity Demo</h1>
+                <p className="text-xs sm:text-sm text-gray-600">Experience the magic of gamified productivity</p>
               </div>
             </div>
             <Link href="/">
-              <Button variant="outline">Back to Home</Button>
+              <Button variant="outline" size="sm" className="sm:text-base">Back to Home</Button>
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4 sm:py-8">
         {/* Demo Progress */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
@@ -194,9 +194,9 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-8">
           {/* Left Column - Tree & Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Current Step Info */}
             <Card className="border-green-200">
               <CardHeader>
@@ -204,18 +204,18 @@ export default function DemoPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">{currentStepData.description}</p>
-                <div className="flex items-center space-x-4">
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-green-600">{demoPoints}</p>
-                    <p className="text-sm text-gray-600">Points</p>
+                    <p className="text-lg sm:text-2xl font-bold text-green-600">{demoPoints}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Points</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-blue-600">{calculateTreeLevel()}</p>
-                    <p className="text-sm text-gray-600">Level</p>
+                    <p className="text-lg sm:text-2xl font-bold text-blue-600">{calculateTreeLevel()}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Level</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-orange-600">{demoTree.totalApples}</p>
-                    <p className="text-sm text-gray-600">Apples</p>
+                    <p className="text-lg sm:text-2xl font-bold text-orange-600">{demoTree.totalApples}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Apples</p>
                   </div>
                 </div>
               </CardContent>
@@ -237,15 +237,15 @@ export default function DemoPage() {
           </div>
 
           {/* Right Column - Interactive Demo */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Demo Timer */}
             <Card className="border-green-200">
               <CardHeader>
                 <CardTitle>Interactive Timer Demo</CardTitle>
               </CardHeader>
               <CardContent className="text-center">
-                <div className="relative w-32 h-32 mx-auto mb-6">
-                  <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                <div className="relative w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6">
+                  <svg className="w-24 h-24 sm:w-32 sm:h-32 transform -rotate-90" viewBox="0 0 100 100">
                     <circle
                       cx="50"
                       cy="50"
@@ -269,11 +269,11 @@ export default function DemoPage() {
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-900">{formatTime(demoTimer)}</span>
+                    <span className="text-lg sm:text-2xl font-bold text-gray-900">{formatTime(demoTimer)}</span>
                   </div>
                 </div>
 
-                <div className="flex justify-center space-x-4">
+                <div className="flex justify-center space-x-2 sm:space-x-4">
                   <Button onClick={toggleTimer} className="bg-green-600 hover:bg-green-700">
                     {isTimerRunning ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
                     {isTimerRunning ? "Pause" : "Start"}
@@ -296,7 +296,7 @@ export default function DemoPage() {
               </CardHeader>
               <CardContent>
                 {/* Task Stats */}
-                <div className="grid grid-cols-2 gap-4 text-center mb-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 text-center mb-4">
                   <div>
                     <p className="text-lg font-bold text-green-600">
                       {completedTasks.length}
@@ -406,12 +406,13 @@ export default function DemoPage() {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center mt-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center mt-6 sm:mt-8 space-y-4 sm:space-y-0">
           <Button
             onClick={prevStep}
             disabled={currentStep === 0}
             variant="outline"
-            className="flex items-center space-x-2 bg-transparent"
+            size="sm"
+            className="flex items-center space-x-2 bg-transparent w-full sm:w-auto"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Previous</span>
@@ -432,7 +433,8 @@ export default function DemoPage() {
           <Button
             onClick={nextStep}
             disabled={currentStep === demoSteps.length - 1}
-            className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
+            size="sm"
+            className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 w-full sm:w-auto"
           >
             <span>Next</span>
             <ArrowRight className="h-4 w-4" />

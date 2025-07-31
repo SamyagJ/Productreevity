@@ -451,8 +451,8 @@ export default function Dashboard() {
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
         <div className="w-full px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="flex items-center space-x-2">
                 <Button
                   variant="outline"
@@ -460,7 +460,7 @@ export default function Dashboard() {
                   onClick={() => setShowSettingsPopup(true)}
                   className="text-gray-600 hover:text-gray-900"
                 >
-                  <Settings className="h-4 w-4" />
+                  <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
                 <Button
                   variant="outline"
@@ -468,32 +468,32 @@ export default function Dashboard() {
                   onClick={() => setShowLogoutPopup(true)}
                   className="text-gray-600 hover:text-red-600 hover:border-red-200"
                 >
-                  <LogOut className="h-4 w-4" />
+                  <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
                 </Button>
               </div>
-              <TreePine className="h-8 w-8 text-green-600" />
+              <TreePine className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Productreevity</h1>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Welcome back, {user.username}!</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">Productreevity</h1>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Welcome back, {user.username}!</p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <p className="text-sm text-gray-600 dark:text-gray-300">Total Points</p>
-                <p className="text-xl font-bold text-green-600">{user.totalPoints.toLocaleString()}</p>
+            <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="text-center sm:text-right">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Total Points</p>
+                <p className="text-lg sm:text-xl font-bold text-green-600">{user.totalPoints.toLocaleString()}</p>
               </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-600 dark:text-gray-300">Current Streak</p>
-                <p className="text-xl font-bold text-orange-600">{user.currentStreak} days</p>
+              <div className="text-center sm:text-right">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Current Streak</p>
+                <p className="text-lg sm:text-xl font-bold text-orange-600">{user.currentStreak} days</p>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-4 sm:py-8">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Left Column - Tree & Timer */}
           <div className="lg:col-span-2 space-y-6">
             {/* Tree Visualization */}
@@ -509,27 +509,27 @@ export default function Dashboard() {
                 <RealisticTreeVisualization tree={tree} onTreeUpdate={setTree} />
 
                 {/* Apple Collection Stats */}
-                <div className="p-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
-                  <div className="grid grid-cols-4 gap-4">
+                <div className="p-4 sm:p-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                     <div className="text-center">
-                      <div className="w-10 h-10 bg-gradient-to-br from-red-400 to-red-600 rounded-full mx-auto mb-2 shadow-lg"></div>
-                      <p className="text-sm font-medium">Red</p>
-                      <p className="text-lg font-bold text-red-600">{tree.redApples}</p>
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-red-400 to-red-600 rounded-full mx-auto mb-2 shadow-lg"></div>
+                      <p className="text-xs sm:text-sm font-medium">Red</p>
+                      <p className="text-base sm:text-lg font-bold text-red-600">{tree.redApples}</p>
                     </div>
                     <div className="text-center">
-                      <div className="w-10 h-10 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full mx-auto mb-2 shadow-lg"></div>
-                      <p className="text-sm font-medium">Silver</p>
-                      <p className="text-lg font-bold text-gray-600">{tree.silverApples}</p>
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full mx-auto mb-2 shadow-lg"></div>
+                      <p className="text-xs sm:text-sm font-medium">Silver</p>
+                      <p className="text-base sm:text-lg font-bold text-gray-600">{tree.silverApples}</p>
                     </div>
                     <div className="text-center">
-                      <div className="w-10 h-10 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full mx-auto mb-2 shadow-lg"></div>
-                      <p className="text-sm font-medium">Gold</p>
-                      <p className="text-lg font-bold text-yellow-600">{tree.goldApples}</p>
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full mx-auto mb-2 shadow-lg"></div>
+                      <p className="text-xs sm:text-sm font-medium">Gold</p>
+                      <p className="text-base sm:text-lg font-bold text-yellow-600">{tree.goldApples}</p>
                     </div>
                     <div className="text-center">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-300 to-blue-600 rounded-full mx-auto mb-2 shadow-lg"></div>
-                      <p className="text-sm font-medium">Diamond</p>
-                      <p className="text-lg font-bold text-blue-600">{tree.diamondApples}</p>
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-300 to-blue-600 rounded-full mx-auto mb-2 shadow-lg"></div>
+                      <p className="text-xs sm:text-sm font-medium">Diamond</p>
+                      <p className="text-base sm:text-lg font-bold text-blue-600">{tree.diamondApples}</p>
                     </div>
                   </div>
                 </div>

@@ -93,7 +93,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Tiered Apple System</h3>
               <p className="text-gray-600">
-                Earn Bronze, Silver, Gold, and Diamond apples based on productivity streaks
+                Earn Red, Silver, Gold, and Diamond apples based on productivity streaks
               </p>
             </CardContent>
           </Card>
@@ -133,12 +133,11 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-green-600 text-white py-16">
+      <section className="bg-green-600 text-white py-8 sm:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Grow Your Productivity?</h2>
-          <p className="text-xl mb-8 opacity-90">Join thousands of users who have transformed their work habits</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-4">Ready to Grow Your Productivity?</h2>
           <Link href="/signup">
-            <Button size="lg" variant="secondary" className="px-8">
+            <Button size="lg" variant="secondary" className="px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg">
               Start Your Journey
             </Button>
           </Link>
