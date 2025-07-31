@@ -1,5 +1,5 @@
 # Productreevity Database Schema
-complete_scheme.sql contains all deployment postgres in a compiled document for quick deployment
+complete_scheme.sql contains all deployment postgres in a compiled document
 
 ## Production Files
 
