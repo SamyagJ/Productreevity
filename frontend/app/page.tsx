@@ -151,7 +151,7 @@ export default function LandingPage() {
             <TreePine className="h-6 w-6" />
             <span className="text-xl font-bold">Productreevity</span>
           </div>
-          <p className="text-gray-400">Built by the Husky Coding Project team at the University of Washington</p>
+          <p className="text-gray-400">Built by Samyag Jhaveri</p>
         </div>
       </footer>
     </div>
