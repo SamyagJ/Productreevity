@@ -11,14 +11,6 @@ complete_scheme.sql contains all deployment postgres in a compiled document for 
   - Timezone support for accurate time-based achievements
   - Seed data with all achievements
 
-
-## Setup Instructions
-
-### For Fresh Database
-**Just run ONE file**: `complete_schema.sql`
-
-
-
 ## Archive
 
 The `archive/` folder contains:
