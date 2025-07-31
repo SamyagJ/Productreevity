@@ -74,9 +74,3 @@ $$ LANGUAGE plpgsql;
 -- 'America/Los_Angeles' (PST/PDT)
 -- 'Europe/London' (GMT/BST)
 -- 'Asia/Tokyo' (JST)
-
--- Example: Set timezone to Pacific Time
--- UPDATE public.profiles SET timezone = 'America/Los_Angeles' WHERE id = auth.uid();
-
--- 4. Add a settings page option to let users set their timezone
--- You can add this to your settings popup component later
