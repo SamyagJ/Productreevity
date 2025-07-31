@@ -236,6 +236,4 @@ CREATE TRIGGER check_tree_achievements_trigger
     AFTER UPDATE ON public.trees
     FOR EACH ROW EXECUTE FUNCTION public.check_tree_achievements();
 
--- Schedule function to check Consistent Creator daily
--- Note: This would need to be called by a cron job or scheduled task
--- For Supabase, you could use pg_cron extension or call it from your application
+
