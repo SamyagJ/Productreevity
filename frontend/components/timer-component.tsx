@@ -236,8 +236,11 @@ export function TimerComponent({ onSessionComplete }: TimerProps) {
   const toggleTimer = () => {
     if (!isRunning) {
       // Starting timer
-      setSessionStartTime(new Date())
-      setElapsedTime(0)
+      if (!sessionStartTime) {
+        // Only set start time and reset elapsed time on initial start
+        setSessionStartTime(new Date())
+        setElapsedTime(0)
+      }
     }
     setIsRunning(!isRunning)
   }
